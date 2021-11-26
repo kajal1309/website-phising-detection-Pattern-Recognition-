@@ -38,10 +38,7 @@ This data set comes under classification problem, as the input URL is classified
 
 
 
-## Presentation
 
-
-The slide presentaion used in this video is [Phishing Website Detection by Machine Learning Techniques Presentation.pdf](https://github.com/shreyagopal/Phishing-Website-Detection-by-Machine-Learning-Techniques/blob/master/Phishing%20Website%20Detection%20by%20Machine%20Learning%20Techniques%20Presentation.pdf)
 
 
 
