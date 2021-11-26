@@ -1,22 +1,13 @@
-# -*- coding: utf-8 -*-
+
 
 # importing required packages for this section
 from urllib.parse import urlparse,urlencode
 import ipaddress
 import re
 
-"""#### **3.1.1. Domain of the URL**
-Here, we are just extracting the domain present in the URL. This feature doesn't have much significance in the training. May even be dropped while training the model.
-"""
-'''
-# 1.Domain of the URL (Domain) 
-def getDomain(url):  
-  domain = urlparse(url).netloc
-  if re.match(r"^www.",domain):
-	       domain = domain.replace("www.","")
-  return domain'''
 
-"""#### **3.1.2. IP Address in the URL**
+
+"""#### **3.1.1. IP Address in the URL**
 
 Checks for the presence of IP address in the URL. URLs may have IP address instead of domain name. If an IP address is used as an alternative of the domain name in the URL, we can be sure that someone is trying to steal personal information with this URL.
 
@@ -32,7 +23,7 @@ def havingIP(url):
     ip = 0
   return ip
 
-"""#### **3.1.3. "@" Symbol in URL**
+"""#### **3.1.2. "@" Symbol in URL**
 
 Checks for the presence of '@' symbol in the URL. Using “@” symbol in the URL leads the browser to ignore everything preceding the “@” symbol and the real address often follows the “@” symbol. 
 
@@ -47,7 +38,7 @@ def haveAtSign(url):
     at = 0    
   return at
 
-"""#### **3.1.4. Length of URL**
+"""#### **3.1.3. Length of URL**
 
 Computes the length of the URL. Phishers can use long URL to hide the doubtful part in the address bar. In this project, if the length of the URL is greater than or equal 54 characters then the URL classified as phishing otherwise legitimate.
 
@@ -62,7 +53,7 @@ def getLength(url):
     length = 1            
   return length
 
-"""#### **3.1.5. Depth of URL**
+"""#### **3.1.4. Depth of URL**
 
 Computes the depth of the URL. This feature calculates the number of sub pages in the given url based on the '/'.
 
@@ -78,7 +69,7 @@ def getDepth(url):
       depth = depth+1
   return depth
 
-"""#### **3.1.6. Redirection "//" in URL**
+"""#### **3.1.5. Redirection "//" in URL**
 
 Checks the presence of "//" in the URL. The existence of “//” within the URL path means that the user will be redirected to another website. The location of the “//” in URL is computed. We find that if the URL starts with “HTTP”, that means the “//” should appear in the sixth position. However, if the URL employs “HTTPS” then the “//” should appear in seventh position.
 
@@ -96,7 +87,7 @@ def redirection(url):
   else:
     return 0
 
-"""#### **3.1.7. "http/https" in Domain name**
+"""#### **3.1.6. "http/https" in Domain name**
 
 Checks for the presence of "http/https" in the domain part of the URL. The phishers may add the “HTTPS” token to the domain part of a URL in order to trick users.
 
@@ -111,7 +102,7 @@ def httpDomain(url):
   else:
     return 0
 
-"""#### **3.1.8. Using URL Shortening Services “TinyURL”**
+"""#### **3.1.7. Using URL Shortening Services “TinyURL”**
 
 URL shortening is a method on the “World Wide Web” in which a URL may be made considerably smaller in length and still lead to the required webpage. This is accomplished by means of an “HTTP Redirect” on a domain name that is short, which links to the webpage that has a long URL. 
 
@@ -136,7 +127,7 @@ def tinyURL(url):
     else:
         return 0
 
-"""#### **3.1.9. Prefix or Suffix "-" in Domain**
+"""#### **3.1.8. Prefix or Suffix "-" in Domain**
 
 Checking the presence of '-' in the domain part of URL. The dash symbol is rarely used in legitimate URLs. Phishers tend to add prefixes or suffixes separated by (-) to the domain name so that users feel that they are dealing with a legitimate webpage. 
 
