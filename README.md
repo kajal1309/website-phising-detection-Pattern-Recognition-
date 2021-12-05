@@ -31,7 +31,6 @@ This data set comes under classification problem, as the input URL is classified
 
 
 * Random Forest
-* Multilayer Perceptrons
 * XGBoost
 * Autoencoder Neural Network
 * Support Vector Machines
