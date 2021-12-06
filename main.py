@@ -136,6 +136,7 @@ print("XGBoost : Accuracy on test Data: {:.3f}".format(acc_test_xgb))
 #Caution: Execute only once to avoid duplications.
 storeResults('XGBoost', acc_train_xgb, acc_test_xgb)
 
+'''
 #Auto encoder neural network
 #importing required packages
 import keras
@@ -182,7 +183,7 @@ print('Autoencoder: Accuracy on test Data: {:.3f}' .format(acc_test_auto))
 #Caution: Execute only once to avoid duplications.
 storeResults('AutoEncoder', acc_train_auto, acc_test_auto)
 
-
+'''
 
 #creating dataframe
 results = pd.DataFrame({ 'ML Model': ML_Model,    
@@ -192,3 +193,4 @@ results
 
 #Sorting the datafram on accuracy
 results.sort_values(by=['Test Accuracy', 'Train Accuracy'], ascending=False)
+print(results)
