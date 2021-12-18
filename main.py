@@ -3,9 +3,10 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.feature_selection import mutual_info_classif
 
 #Loading the data
-data0 = pd.read_csv(r'C:\Users\USER\OneDrive\Desktop\Phishing-Website-Detection-by-Machine-Learning-Techniques\DataFiles\5.urldata.csv')
+data0 = pd.read_csv(r'D:\sem5\pr\website-phising-detection-Pattern-Recognition-\DataFiles\5.urldata.csv')
 data0.head()
 
 #Listing the features of the dataset
@@ -13,7 +14,6 @@ data0.columns
 
 #Information about the dataset
 data0.info()
-
 #Plotting the data distribution
 data0.hist(bins = 50,figsize = (15,20))
 plt.show()
@@ -42,6 +42,14 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 12)
 X_train.shape, X_test.shape
 
+#Rank features based on mutual information
+mutual_info = mutual_info_classif(X_train, y_train)
+print(mutual_info)
+mutual_info = pd.Series(mutual_info)
+mutual_info.index = X_train.columns
+mutual_info=mutual_info.sort_values(ascending=False)
+print(mutual_info)
+mutual_info.sort_values(ascending=False).plot.bar(figsize=(20, 8))
 #importing packages
 from sklearn.metrics import accuracy_score
 
@@ -135,55 +143,6 @@ print("XGBoost : Accuracy on test Data: {:.3f}".format(acc_test_xgb))
 #storing the results. The below mentioned order of parameter passing is important.
 #Caution: Execute only once to avoid duplications.
 storeResults('XGBoost', acc_train_xgb, acc_test_xgb)
-
-'''
-#Auto encoder neural network
-#importing required packages
-import keras
-from keras.layers import Input, Dense
-from keras import regularizers
-import tensorflow as tf
-from keras.models import Model
-from sklearn import metrics
-
-#building autoencoder model
-
-input_dim = X_train.shape[1]
-encoding_dim = input_dim
-
-input_layer = Input(shape=(input_dim, ))
-encoder = Dense(encoding_dim, activation="relu",
-                activity_regularizer=regularizers.l1(10e-4))(input_layer)
-encoder = Dense(int(encoding_dim), activation="relu")(encoder)
-
-encoder = Dense(int(encoding_dim-2), activation="relu")(encoder)
-code = Dense(int(encoding_dim-4), activation='relu')(encoder)
-decoder = Dense(int(encoding_dim-2), activation='relu')(code)
-
-decoder = Dense(int(encoding_dim), activation='relu')(encoder)
-decoder = Dense(input_dim, activation='relu')(decoder)
-autoencoder = Model(inputs=input_layer, outputs=decoder)
-autoencoder.summary()
-
-#compiling the model
-autoencoder.compile(optimizer='adam',
-                    loss='binary_crossentropy',
-                    metrics=['accuracy'])
-
-#Training the model
-history = autoencoder.fit(X_train, X_train, epochs=10, batch_size=64, shuffle=True, validation_split=0.2) 
-
-acc_train_auto = autoencoder.evaluate(X_train, X_train)[1]
-acc_test_auto = autoencoder.evaluate(X_test, X_test)[1]
-
-print('\nAutoencoder: Accuracy on training Data: {:.3f}' .format(acc_train_auto))
-print('Autoencoder: Accuracy on test Data: {:.3f}' .format(acc_test_auto))
-
-#storing the results. The below mentioned order of parameter passing is important.
-#Caution: Execute only once to avoid duplications.
-storeResults('AutoEncoder', acc_train_auto, acc_test_auto)
-
-'''
 
 #creating dataframe
 results = pd.DataFrame({ 'ML Model': ML_Model,    
